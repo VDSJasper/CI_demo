@@ -1,0 +1,23 @@
+name: Deployment
+
+on: workflow_dispatch
+
+jobs:
+ deploy-latest-version:
+  runs-on: ubuntu-latest
+  steps:
+   - name: Execute remote SSH commands using password
+     uses: appleboy/ssh-action@v1
+     with:
+      host: ${{ secrets.PROD_IP }}
+      username: ubuntu
+      key: ${{ secrets.SSH_KEY }}
+      port: 22
+      script: |
+        if [ "$(docker ps -q)" != "" ]; then
+         docker stop $(docker ps -q)
+         docker rm $(docker ps -aq)
+        fi
+
+         docker pull ${{ secrets.DOCKERHUB_MAPPING }}:latest
+         docker run -d --name calculatorApp -p 8080:80 ${{ secrets.DOCKERHUB_MAPPING }}:latest
