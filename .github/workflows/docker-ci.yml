@@ -3,6 +3,7 @@ name: Docker Example
 on: pull_request
 
 jobs:
+
  setup:
   runs-on: ubuntu-latest
   steps:
@@ -12,14 +13,18 @@ jobs:
      uses: actions/setup-node@v6.0.0
    - name: Install dependencies
      run: npm install
+     
  code-quality:
+  needs: setup
   runs-on: ubuntu-latest
   steps:
    - name: Run Lint
      run: npm run lint
    - name: Run format check
      run: npm run format:check
+     
  NPM-tests:
+  needs: setup
   runs-on: ubuntu-latest
   steps:
    - name: Run tests
