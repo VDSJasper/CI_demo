@@ -20,4 +20,4 @@ jobs:
         fi
 
          sudo docker pull ${{ secrets.DOCKERHUB_MAPPING }}:latest
-         sudo docker run -d --name calculatorApp -p 80:80 ${{ secrets.DOCKERHUB_MAPPING }}:latest
+         sudo docker run -d -p 80:80 ${{ secrets.DOCKERHUB_MAPPING }}:latest
