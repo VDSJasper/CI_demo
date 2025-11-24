@@ -15,9 +15,9 @@ jobs:
       port: 22
       script: |
         if [ "$(docker ps -q)" != "" ]; then
-         docker stop $(docker ps -q)
-         docker rm $(docker ps -aq)
+         sudo docker stop $(docker ps -q)
+         sudo docker rm $(docker ps -aq)
         fi
 
-         docker pull ${{ secrets.DOCKERHUB_MAPPING }}:latest
-         docker run -d --name calculatorApp -p 80:80 ${{ secrets.DOCKERHUB_MAPPING }}:latest
+         sudo docker pull ${{ secrets.DOCKERHUB_MAPPING }}:latest
+         sudo docker run -d --name calculatorApp -p 80:80 ${{ secrets.DOCKERHUB_MAPPING }}:latest
